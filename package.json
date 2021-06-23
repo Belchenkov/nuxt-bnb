@@ -1,0 +1,11 @@
+{
+  "name": "nuxt-bnb",
+  "description": "Build a clone AirBnB app on Nuxt.js",
+  "author": {
+    "name": "Aleksey Belchenkov",
+    "email": "u608110@gmail.com"
+  },
+  "dependencies": {
+    "nuxt": "^2.15.7"
+  }
+}
