@@ -12,6 +12,9 @@ export default {
         },
         meta: [{
             charset: "uft-8"
-        }]
+        }],
+        router: {
+            prefetchLinks: false
+        }
     }
 }
