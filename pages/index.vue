@@ -12,6 +12,16 @@
 import homes from '~/data/homes.json';
 
 export default {
+  head() {
+    return {
+      title: 'Homepage',
+      meta: [{
+        name: 'description',
+        content: 'This is a homepage!',
+        hid: 'description'
+      }]
+    }
+  },
   name: "index",
   data() {
     return {
