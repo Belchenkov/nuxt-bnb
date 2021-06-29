@@ -1,7 +1,5 @@
 <template>
   <div>
-    <h1>NuxtBnB</h1>
-
     <div :key="home.objectID" v-for="home in homes" style="float: left;margin: 10px">
       <nuxt-link :to="`/home/${home.objectID}`">
         <home-card :home="home"></home-card>
