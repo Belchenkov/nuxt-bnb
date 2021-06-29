@@ -27,12 +27,7 @@ import homes from '~/data/homes';
 export default {
   head() {
     return {
-      title: this.home.title,
-      script: [{
-        src: "https://maps.googleapis.com/maps/api/js?key=AIzaSyDe7_F2ExQE6s4ZwwGNqCxSglaUCnL6SvY&libraries=places",
-        hid: "map",
-        defer: true
-      }]
+      title: this.home.title
     }
   },
   data() {
@@ -44,20 +39,10 @@ export default {
     this.home = homes.find(home => home.objectID === this.$route.params.id);
   },
   mounted() {
-    const mapOptions = {
-      center: {
-        lat: this.home._geoloc.lat,
-        lng: this.home._geoloc.lng
-      },
-      zoom: 18,
-      disableDefaultUI: true,
-      zoomControl: true
-    };
+    this.$maps.showMap(this.$refs.map, this.home._geoloc.lat, this.home._geoloc.lng);
+  },
+  methods: {
 
-    const map = new window.google.maps.Map(this.$refs.map, mapOptions);
-    const position = new window.google.maps.LatLng(this.$refs.map, mapOptions);
-    const marker = new window.google.maps.Marker({ position });
-    marker.setMap(map);
   }
 }
 </script>

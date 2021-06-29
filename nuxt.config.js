@@ -13,8 +13,11 @@ export default {
         meta: [{
             charset: "uft-8"
         }],
-        router: {
-            prefetchLinks: false
-        }
-    }
+    },
+    router: {
+        prefetchLinks: false
+    },
+    plugins: [
+        '~/plugins/maps.client'
+    ]
 }

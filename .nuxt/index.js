@@ -13,6 +13,7 @@ import { setContext, getLocation, getRouteData, normalizeError } from './utils'
 /* Plugins */
 
 import nuxt_plugin_plugin_c198a1e0 from 'nuxt_plugin_plugin_c198a1e0' // Source: ./components/plugin.js (mode: 'all')
+import nuxt_plugin_maps_6ed989cc from 'nuxt_plugin_maps_6ed989cc' // Source: ../plugins/maps.client (mode: 'client')
 
 // Component: <ClientOnly>
 Vue.component(ClientOnly.name, ClientOnly)
@@ -62,7 +63,7 @@ async function createApp(ssrContext, config = {}) {
   // here we inject the router and store to all child components,
   // making them available everywhere as `this.$router` and `this.$store`.
   const app = {
-    head: {"titleTemplate":"Build Clone AirBnB on Nuxt.js","htmlAttrs":{"lang":"en"},"bodyAttrs":{"class":["my-style"]},"meta":[{"charset":"uft-8"}],"router":{"prefetchLinks":false},"link":[],"style":[],"script":[]},
+    head: {"titleTemplate":"Build Clone AirBnB on Nuxt.js","htmlAttrs":{"lang":"en"},"bodyAttrs":{"class":["my-style"]},"meta":[{"charset":"uft-8"}],"link":[],"style":[],"script":[]},
 
     router,
     nuxt: {
@@ -178,6 +179,10 @@ async function createApp(ssrContext, config = {}) {
 
   if (typeof nuxt_plugin_plugin_c198a1e0 === 'function') {
     await nuxt_plugin_plugin_c198a1e0(app.context, inject)
+  }
+
+  if (process.client && typeof nuxt_plugin_maps_6ed989cc === 'function') {
+    await nuxt_plugin_maps_6ed989cc(app.context, inject)
   }
 
   // Lock enablePreview in context
