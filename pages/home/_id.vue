@@ -22,21 +22,18 @@
 </template>
 
 <script>
-import homes from '~/data/homes';
-
 export default {
   head() {
     return {
       title: this.home.title
     }
   },
-  data() {
+  async asyncData({ params, $dataApi }) {
+    const home = await $dataApi.getHome(params.id);
+
     return {
-      home: null
+      home,
     }
-  },
-  created() {
-    this.home = homes.find(home => home.objectID === this.$route.params.id);
   },
   mounted() {
     this.$maps.showMap(this.$refs.map, this.home._geoloc.lat, this.home._geoloc.lng);
