@@ -1,6 +1,10 @@
 export default function (context, inject) {
     const appId = 'H2AOMFZD4O';
     const apiKey = '94ed5d49fba20e6f8744ceb96dddb33a';
+    const headers = {
+        'X-Algolia-API-key': apiKey,
+            'X-Algolia-Application-Id': appId
+    };
 
     inject('dataApi', {
         getHome
@@ -8,17 +12,38 @@ export default function (context, inject) {
 
     async function getHome(homeId) {
         try {
-            const res = await fetch(`https://${appId}-dsn.algolia.net/1/indexes/homes/${homeId}`, {
-                headers: {
-                    'X-Algolia-API-key': apiKey,
-                    'X-Algolia-Application-Id': appId
-                }
-            });
+            return unWrap(await fetch(`https://${appId}-dsn.algolia.net/1/indexes/homes/${homeId}`, {
+                headers
+            }));
+        } catch (err) {
+            console.log(err);
+            return getErrorResponse(err);
+        }
+    }
 
-            return await res.json();
+    async function unWrap(response) {
+        try {
+            const data = await response.json();
+            const { ok, status, statusText } = data;
+
+            return {
+                data,
+                ok,
+                status,
+                statusText,
+            };
         } catch (err) {
             console.log(err);
             throw err;
         }
+    }
+
+    async function getErrorResponse(error) {
+        return {
+          ok: false,
+          status: 500,
+          statusText: error.message,
+          data: {}
+        };
     }
 }

@@ -1,0 +1,15 @@
+{
+  "entry": "server.js",
+  "files": {
+    "components/home-card.js": "components/home-card.js",
+    "pages/home/_id.js": "pages/home/_id.js",
+    "pages/index.js": "pages/index.js",
+    "server.js": "server.js"
+  },
+  "maps": {
+    "components/home-card.js": "components/home-card.js.map",
+    "pages/home/_id.js": "pages/home/_id.js.map",
+    "pages/index.js": "pages/index.js.map",
+    "server.js": "server.js.map"
+  }
+}
