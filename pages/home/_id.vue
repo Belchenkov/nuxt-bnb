@@ -24,8 +24,8 @@
     <!-- Reviews   -->
     <div v-for="review in reviews" :key="review.objectID">
       <img :src="review.reviewer.image" :alt="review.title"><br>
-      {{ review.date }}<br>
-      {{ review.comment }}<br>
+      {{ formatDate(review.date) }}<br>
+      <short-text :text="review.comment" :target="150"/><br>
     </div>
   </div>
 </template>
@@ -50,7 +50,9 @@ export default {
     this.$maps.showMap(this.$refs.map, this.home._geoloc.lat, this.home._geoloc.lng);
   },
   methods: {
-
+    formatDate(dateStr) {
+      return new Date(dateStr).toLocaleDateString(undefined, { month: 'long', year: 'numeric' });
+    }
   }
 }
 </script>
