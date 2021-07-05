@@ -17,7 +17,16 @@
     <img src="/images/star.svg" alt="Marker" width="20" height="20" /> {{ home.reviewValue }} <br />
     {{ home.guests }} guests, {{ home.bedrooms }} rooms, {{ home.beds }} beds, {{ home.bathrooms }} bathrooms
     <p>{{ home.description }}</p>
+
+    <!-- Map  -->
     <div style="height: 800px;width: 800px" ref="map"></div>
+
+    <!-- Reviews   -->
+    <div v-for="review in reviews" :key="review.objectID">
+      <img :src="review.reviewer.image" :alt="review.title"><br>
+      {{ review.date }}<br>
+      {{ review.comment }}<br>
+    </div>
   </div>
 </template>
 
@@ -28,23 +37,13 @@ export default {
       title: this.home.title
     }
   },
-  async asyncData({ params, $dataApi }) {
-    const {
-      data,
-      status,
-      statusText,
-      ok
-    } = await $dataApi.getHome(params.id);
-
-    if (! ok) {
-      return error({
-        statusCode: status,
-        message: statusText
-      })
-    }
+  async asyncData({ params, $dataApi, error }) {
+    const homeResponse = await $dataApi.getHome(params.id);
+    const reviewResponse = await $dataApi.getReviewsByHomeId(params.id);
 
     return {
-      home: data,
+      home: homeResponse.data,
+      reviews: reviewResponse.data.hits,
     }
   },
   mounted() {
