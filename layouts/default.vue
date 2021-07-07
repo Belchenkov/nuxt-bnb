@@ -4,6 +4,7 @@
 
     <header style="background: #eee;">
       <nuxt-link to="/">Home</nuxt-link>
+      <input type="text" ref="citySearch" @changed="changed" />
     </header>
     <nuxt />
   </div>
@@ -11,7 +12,26 @@
 
 <script>
 export default {
-  name: "default"
+  name: "default",
+  mounted() {
+    this.$maps.makeAutoComplete(this.$refs.citySearch);
+  },
+  methods: {
+    changed(event) {
+      const place = event.detail;
+
+      if (! place.geometry) return;
+
+      this.$router.push({
+        name: 'search',
+        query: {
+          lat: place.geometry.location.lat(),
+          lng: place.geometry.location.lng(),
+          label: this.$refs.citySearch.value,
+        }
+      });
+    }
+  }
 }
 </script>
 

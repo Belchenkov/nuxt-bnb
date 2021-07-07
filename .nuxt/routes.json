@@ -1,14 +1,23 @@
 [
   {
+    "name": "search",
+    "path": "/search",
+    "component": "/Users/belchenkov/projects/nuxt/nuxtBnB/pages/search.vue",
+    "chunkName": "pages/search",
+    "_name": "_5a53741c"
+  },
+  {
     "name": "home-id",
     "path": "/home/:id?",
     "component": "/Users/belchenkov/projects/nuxt/nuxtBnB/pages/home/_id.vue",
-    "chunkName": "pages/home/_id"
+    "chunkName": "pages/home/_id",
+    "_name": "_4c5c3754"
   },
   {
     "name": "index",
     "path": "/",
     "component": "/Users/belchenkov/projects/nuxt/nuxtBnB/pages/index.vue",
-    "chunkName": "pages/index"
+    "chunkName": "pages/index",
+    "_name": "_0984e278"
   }
 ]
