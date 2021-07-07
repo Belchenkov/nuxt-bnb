@@ -27,6 +27,18 @@
       {{ formatDate(review.date) }}<br>
       <short-text :text="review.comment" :target="150"/><br>
     </div>
+
+    <!-- User   -->
+    <template v-if="user">
+      <img
+          :src="user.image"
+          alt="Avatar"
+      /> <br>
+      {{ user.name }} <br/>
+      {{ formatDate(user.joined) }} <br/>
+      {{ user.reviewCount }} <br/>
+      {{ user.description }} <br/>
+    </template>
   </div>
 </template>
 
@@ -40,10 +52,12 @@ export default {
   async asyncData({ params, $dataApi, error }) {
     const homeResponse = await $dataApi.getHome(params.id);
     const reviewResponse = await $dataApi.getReviewsByHomeId(params.id);
+    const userResponse = await $dataApi.getUserByHomeId(params.id);
 
     return {
       home: homeResponse.data,
       reviews: reviewResponse.data.hits,
+      user: userResponse.data.hits[0],
     }
   },
   mounted() {
