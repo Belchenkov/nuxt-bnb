@@ -50,14 +50,24 @@ export default {
     }
   },
   async asyncData({ params, $dataApi, error }) {
-    const homeResponse = await $dataApi.getHome(params.id);
-    const reviewResponse = await $dataApi.getReviewsByHomeId(params.id);
-    const userResponse = await $dataApi.getUserByHomeId(params.id);
+    const responses = await Promise.all([
+      await $dataApi.getHome(params.id),
+      await $dataApi.getReviewsByHomeId(params.id),
+      await $dataApi.getUserByHomeId(params.id)
+    ]);
+
+    //const badResponse = responses.find(response => !response.ok);
+    // if (badResponse) {
+    //   return error({
+    //     statusCode: badResponse.status,
+    //     message: badResponse.statusText
+    //   });
+    // }
 
     return {
-      home: homeResponse.data,
-      reviews: reviewResponse.data.hits,
-      user: userResponse.data.hits[0],
+      home: responses[0].data,
+      reviews: responses[1].data.hits,
+      user: responses[2].data.hits[0],
     }
   },
   mounted() {
