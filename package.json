@@ -5,6 +5,11 @@
     "name": "Aleksey Belchenkov",
     "email": "u608110@gmail.com"
   },
+  "scripts": {
+    "start": "nuxt start",
+    "dev": "nuxt",
+    "build": "nuxt build"
+  },
   "dependencies": {
     "nuxt": "^2.15.7"
   }
