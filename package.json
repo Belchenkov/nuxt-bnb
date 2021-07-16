@@ -11,6 +11,14 @@
     "build": "nuxt build"
   },
   "dependencies": {
-    "nuxt": "^2.15.7"
+    "add": "^2.0.6",
+    "nuxt": "^2.15.7",
+    "yarn": "^1.22.10"
+  },
+  "devDependencies": {
+    "@nuxtjs/tailwindcss": "^4.2.1",
+    "autoprefixer": "^10.3.1",
+    "postcss": "^8.3.5",
+    "tailwindcss": "^2.2.4"
   }
 }

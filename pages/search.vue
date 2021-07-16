@@ -43,13 +43,13 @@ export default {
     }
   },
   async beforeRouteUpdate(to, from, next){
-    const data = await this.$dataApi.getHomesByLocation(to.query.lat, to.query.lng, to.query.start, to.query.end)
-    this.homes = data.json.hits
-    this.label = to.query.label
-    this.lat = to.query.lat
-    this.lng = to.query.lng
-    this.updateMap()
-    next()
+    const data = await this.$dataApi.getHomesByLocation(to.query.lat, to.query.lng, to.query.start, to.query.end);
+    this.homes = data.json.hits;
+    this.label = to.query.label;
+    this.lat = to.query.lat;
+    this.lng = to.query.lng;
+    this.updateMap();
+    next();
   },
 
   async asyncData({ query, $dataApi }){
