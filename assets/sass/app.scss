@@ -75,6 +75,8 @@ $cities: paris, new-york, london, dubai, san-francisco, cancun;
 
   &-big-button {
     @apply text-xl bg-dodger-blue text-white py-5 w-full rounded-lg mt-5 shadow-2xl;
+    text-align: center;
+    font-weight: bold;
   }
 
   &-search {
