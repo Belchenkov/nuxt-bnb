@@ -1,49 +1,31 @@
 <template>
-  <div v-if="home">
-    <div class="display:flex">
-      <img
-          v-for="image in home.images"
-          :key="image"
-          :src="image"
-          :alt="home.title"
-          width="200"
-          height="150"
-      />
-    </div>
-    {{ home.title }}
-    ${{ home.pricePerNight }} / night <br/>
-    <img src="/images/marker.svg" alt="Marker" width="20" height="20" />
-    {{ home.location.address }} {{ home.location.city }} {{ home.location.state }} {{ home.location.country }} <br />
-    <img src="/images/star.svg" alt="Marker" width="20" height="20" /> {{ home.reviewValue }} <br />
-    {{ home.guests }} guests, {{ home.bedrooms }} rooms, {{ home.beds }} beds, {{ home.bathrooms }} bathrooms
-    <p>{{ home.description }}</p>
-
-    <!-- Map  -->
-    <div style="height: 800px;width: 800px" ref="map"></div>
-
-    <!-- Reviews   -->
-    <div v-for="review in reviews" :key="review.objectID">
-      <img :src="review.reviewer.image" :alt="review.title"><br>
-      {{ formatDate(review.date) }}<br>
-      <short-text :text="review.comment" :target="150"/><br>
-    </div>
-
-    <!-- User   -->
-    <template v-if="user">
-      <img
-          :src="user.image"
-          alt="Avatar"
-      /> <br>
-      {{ user.name }} <br/>
-      {{ formatDate(user.joined) }} <br/>
-      {{ user.reviewCount }} <br/>
-      {{ user.description }} <br/>
-    </template>
+  <div v-if="home" class="app-container">
+    <property-gallery :images="home.images" />
+    <property-details :home="home" />
+    <property-description :home="home" />
+    <property-map :home="home" />
+    <property-reviews :reviews="reviews" />
+    <property-host :user="user" />
   </div>
 </template>
 
 <script>
+import PropertyDetails from "../../components/PropertyDetails";
+import PropertyDescription from "../../components/PropertyDescription";
+import PropertyGallery from "../../components/PropertyGallery";
+import PropertyMap from "../../components/PropertyMap";
+import PropertyReviews from "../../components/PropertyReviews";
+import PropertyHost from "../../components/PropertyHost";
+
 export default {
+  components: {
+    PropertyDescription,
+    PropertyDetails,
+    PropertyGallery,
+    PropertyMap,
+    PropertyReviews,
+    PropertyHost,
+  },
   head() {
     return {
       title: this.home.title
@@ -56,28 +38,13 @@ export default {
       await $dataApi.getUserByHomeId(params.id)
     ]);
 
-    //const badResponse = responses.find(response => !response.ok);
-    // if (badResponse) {
-    //   return error({
-    //     statusCode: badResponse.status,
-    //     message: badResponse.statusText
-    //   });
-    // }
-
     return {
       home: responses[0].data,
       reviews: responses[1].data.hits,
       user: responses[2].data.hits[0],
     }
   },
-  mounted() {
-    this.$maps.showMap(this.$refs.map, this.home._geoloc.lat, this.home._geoloc.lng);
-  },
-  methods: {
-    formatDate(dateStr) {
-      return new Date(dateStr).toLocaleDateString(undefined, { month: 'long', year: 'numeric' });
-    }
-  }
+  methods: {}
 }
 </script>
 
