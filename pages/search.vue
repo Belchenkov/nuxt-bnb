@@ -3,8 +3,18 @@
     <div class="app-search-results">
       <div class="app-search-results-listing">
         <h2 class="app-title">Stays in {{ label }}</h2>
-        <nuxt-link v-for="home in homes" :key="home.objectID" :to="`/home/${home.objectID}`">
-          <HomeRow class="app-house" :home="home" @mouseover.native="highlightMarker(home.objectID, true)" @mouseout.native="highlightMarker(home.objectID, false)"/>
+        <nuxt-link
+            v-if="homes"
+            v-for="home in homes"
+            :key="home.objectID"
+            :to="`/home/${home.objectID}`"
+        >
+          <HomeRow
+              class="app-house"
+              :home="home"
+              @mouseover.native="highlightMarker(home.objectID, true)"
+              @mouseout.native="highlightMarker(home.objectID, false)"
+          />
         </nuxt-link>
       </div>
       <div class="app-search-results-map">
@@ -54,8 +64,9 @@ export default {
 
   async asyncData({ query, $dataApi }){
     const data = await $dataApi.getHomesByLocation(query.lat, query.lng, query.start, query.end)
+    console.log(data, 'data')
     return {
-      homes: data.json.hits,
+      homes: data.hits,
       label: query.label,
       lat: query.lat,
       lng: query.lng,

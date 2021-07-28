@@ -19,7 +19,8 @@ export default {
     },
     plugins: [
         '~/plugins/maps.client',
-        '~/plugins/dataApi'
+        '~/plugins/dataApi',
+        '~/plugins/auth.client'
     ],
     modules: [],
     buildModules: [
@@ -33,5 +34,14 @@ export default {
         loaders: {
             limit: 0
         }
+    },
+    publicRuntimeConfig: {
+        auth: {
+            cookieName: 'idToken',
+            clientId: '448467644899-1120fsp32mv4cb42mdbdmp6oaqn3254j.apps.googleusercontent.com'
+        },
+    },
+    privateRuntimeConfig: {
+
     }
 }
