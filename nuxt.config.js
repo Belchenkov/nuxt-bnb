@@ -22,7 +22,9 @@ export default {
         '~/plugins/dataApi',
         '~/plugins/auth.client'
     ],
-    modules: [],
+    modules: [
+        '~/modules/auth'
+    ],
     buildModules: [
         '@nuxtjs/tailwindcss'
     ],
