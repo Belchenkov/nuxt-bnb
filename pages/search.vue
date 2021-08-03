@@ -41,7 +41,8 @@ export default {
       this.$maps.showMap(this.$refs.map, this.lat, this.lng, this.getHomeMarkers())
     },
     getHomeMarkers(){
-      if (this.homes.length ==0) return null
+      console.log(this.homes, 'homes');
+      if (this.homes?.length == 0) return null
 
       return this.homes.map((home) => {
         return {
@@ -54,6 +55,7 @@ export default {
   },
   async beforeRouteUpdate(to, from, next){
     const data = await this.$dataApi.getHomesByLocation(to.query.lat, to.query.lng, to.query.start, to.query.end);
+
     this.homes = data.json.hits;
     this.label = to.query.label;
     this.lat = to.query.lat;
@@ -63,8 +65,8 @@ export default {
   },
 
   async asyncData({ query, $dataApi }){
-    const data = await $dataApi.getHomesByLocation(query.lat, query.lng, query.start, query.end)
-    console.log(data, 'data')
+    const { data } = await $dataApi.getHomesByLocation(query.lat, query.lng, query.start, query.end)
+
     return {
       homes: data.hits,
       label: query.label,
