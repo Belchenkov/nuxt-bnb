@@ -13,9 +13,12 @@
         </button>
       </div>
       <div class="app-user-menu">
-        <img src="/images/icons/house.svg" alt="menu">
-        <div class="name">Host</div>
-        <img src="/images/user.jpg" class="avatar" alt="avatar">
+        <template v-if="isLoggedIn">
+          <img src="/images/icons/house.svg" alt="menu">
+          <div class="name">Host</div>
+          <img :src="user.profileUrl" alt="avatar" class="avatar" />
+        </template>
+        <div v-show="!isLoggedIn" class="ml-8" id="googleButton"></div>
       </div>
     </header>
 
@@ -29,6 +32,14 @@ export default {
   name: "default",
   mounted() {
     this.$maps.makeAutoComplete(this.$refs.citySearch);
+  },
+  computed: {
+    user() {
+      return this.$store.state.auth.user;
+    },
+    isLoggedIn() {
+      return this.$store.state.auth.isLoggedIn;
+    }
   },
   methods: {
     changed(event) {
